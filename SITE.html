@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Hotel Elegance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .terms-modal {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        .calendar-day:hover {
+            transform: scale(1.05);
+        }
+        .pet-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        input[type="checkbox"]:checked + label {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar bg-blue-800 text-white w-64 flex-shrink-0">
+            <div class="p-4 flex items-center">
+                <img src="https://placehold.co/40x40" alt="Logo do Pet Hotel - Cão feliz com coleira azul e fundo branco" class="mr-2">
+                <h1 class="text-xl font-bold">Pet Hotel</h1>
+            </div>
+            <nav class="mt-6">
+                <div class="px-4 py-2 text-blue-200 uppercase text-xs font-semibold">Menu</div>
+                <a href="#" id="dashboard-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-home mr-3"></i> Dashboard
+                </a>
+                <a href="#" id="tutors-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-users mr-3"></i> Tutores
+                </a>
+                <a href="#" id="pets-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-paw mr-3"></i> Pets
+                </a>
+                <a href="#" id="calendar-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-calendar-alt mr-3"></i> Calendário
+                </a>
+                <a href="#" id="services-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-concierge-bell mr-3"></i> Serviços
+                </a>
+                <a href="#" id="sales-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-receipt mr-3"></i> Vendas
+                </a>
+                <a href="#" id="reports-tab" class="block px-4 py-3 text-white hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-chart-bar mr-3"></i> Relatórios
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white shadow-sm">
+                <div class="px-6 py-4 flex justify-between items-center">
+                    <h2 id="section-title" class="text-xl font-semibold text-gray-800">Dashboard</h2>
+                    <div class="flex items-center space-x-4">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                            <i class="fas fa-user-plus mr-2"></i> Cadastrar Tutor
+                        </button>
+                        <div class="relative">
+                            <img src="https://placehold.co/40x40" alt="Foto de perfil do usuário admin - Homem sorrindo com camisa azul" class="w-8 h-8 rounded-full cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Dashboard Content -->
+                <div id="dashboard-content" class="content-section">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Tutores Cadastrados</h3>
+                            <p class="text-3xl font-bold text-blue-600">124</p>
+                            <div class="mt-4">
+                                <div class="flex items-center">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-arrow-up"></i> 12%
+                                    </span>
+                                    <span class="text-gray-500 ml-2">este mês</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Pets Hospedados</h3>
+                            <p class="text-3xl font-bold text-blue-600">32</p>
+                            <div class="mt-4">
+                                <div class="flex items-center">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-arrow-up"></i> 5%
+                                    </span>
+                                    <span class="text-gray-500 ml-2">este mês</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Faturamento Mensal</h3>
+                            <p class="text-3xl font-bold text-blue-600">R$ 18,540</p>
+                            <div class="mt-4">
+                                <div class="flex items-center">
+                                    <span class="text-green-500">
+                                        <i class="fas fa-arrow-up"></i> 8%
+                                    </span>
+                                    <span class="text-gray-500 ml-2">este mês</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Próximos Compromissos</h3>
+                            <a href="#" class="text-blue-600 hover:text-blue-800">Ver Tudo</a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pet</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tutor</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serviço</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data/Hora</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-10 w-10">
+                                                    <img src="https://placehold.co/40x40" alt="Golden Retriever sorrindo com a língua para fora" class="h-10 w-10 rounded-full">
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">Thor</div>
+                                                    <div class="text-sm text-gray-500">Golden Retriever</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">Marcos Silva</div>
+                                            <div class="text-sm text-gray-500">(11) 99999-9999</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hospedagem</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/08/2023 - 10:00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pendente</span>
+                                        </td>
+                                    </tr>
+                                    <!-- More appointments... -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutors Content -->
+                <div id="tutors-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Cadastro de Tutores</h3>
+                            <button id="new-tutor-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Novo Tutor
+                            </button>
+                        </div>
+                        <div class="mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="search-tutor" class="block text-sm font-medium text-gray-700">Buscar Tutor</label>
+                                    <input type="text" id="search-tutor" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="filter-pet" class="block text-sm font-medium text-gray-700">Tipo de Pet</label>
+                                    <select id="filter-pet" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="dog">Cachorro</option>
+                                        <option value="cat">Gato</option>
+                                        <option value="other">Outros</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPF</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telefone</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Endereço</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pets</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-10 w-10">
+                                                    <img src="https://placehold.co/40x40" alt="Foto de perfil do tutor João Silva - Homem com óculos e sorriso amigável" class="h-10 w-10 rounded-full">
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">João Silva</div>
+                                                    <div class="text-sm text-gray-500">joao@email.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">123.456.789-00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">(11) 99999-9999</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rua A, 123 - São Paulo/SP</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <div class="flex">
+                                                <span class="mr-1">3</span>
+                                                <i class="fas fa-paw text-yellow-500"></i>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Editar</a>
+                                            <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
+                                        </td>
+                                    </tr>
+                                    <!-- More tutors... -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <p class="text-sm text-gray-700">
+                                    Mostrando <span class="font-medium">1</span> a <span class="font-medium">10</span> de <span class="font-medium">124</span> resultados
+                                </p>
+                            </div>
+                            <div>
+                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Anterior</span>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                    <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                        1
+                                    </a>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                        2
+                                    </a>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                        3
+                                    </a>
+                                    <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                        ...
+                                    </span>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                        8
+                                    </a>
+                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Próximo</span>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Tutor Modal -->
+                <div id="new-tutor-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+                        <div class="border-b border-gray-200 px-6 py-4">
+                            <h3 class="text-lg font-medium text-gray-900">Novo Tutor</h3>
+                        </div>
+                        <div class="px-6 py-4">
+                            <form id="tutor-form">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="tutor-name" class="block text-sm font-medium text-gray-700">Nome Completo *</label>
+                                        <input type="text" id="tutor-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="tutor-cpf" class="block text-sm font-medium text-gray-700">CPF *</label>
+                                        <input type="text" id="tutor-cpf" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="tutor-email" class="block text-sm font-medium text-gray-700">E-mail *</label>
+                                        <input type="email" id="tutor-email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="tutor-phone" class="block text-sm font-medium text-gray-700">Telefone *</label>
+                                        <input type="tel" id="tutor-phone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="tutor-address" class="block text-sm font-medium text-gray-700">Endereço Completo *</label>
+                                        <input type="text" id="tutor-address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex items-center">
+                                    <input type="checkbox" id="tutor-terms" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required>
+                                    <label for="tutor-terms" class="ml-2 block text-sm text-gray-700">
+                                        Li e aceito os <a href="#" class="text-blue-600 hover:text-blue-800" id="view-terms">Termos do Pet Hotel</a>
+                                    </label>
+                                </div>
+                                <div class="mt-6" id="tutor-link-section" class="hidden">
+                                    <label class="block text-sm font-medium text-gray-700">Link de Cadastro para Tutor</label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                        <input type="text" id="tutor-link" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md border border-gray-300 focus:ring-blue-500 focus:border-blue-500" readonly>
+                                        <button type="button" class="inline-flex items-center px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 text-gray-500 hover:bg-gray-100" onclick="copyTutorLink()">
+                                            <i class="fas fa-copy mr-1"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Envie este link para o tutor completar o cadastro do pet.
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                            <button type="button" id="cancel-tutor" class="mr-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Cancelar
+                            </button>
+                            <button type="button" id="generate-tutor-link" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Gerar Link de Cadastro
+                            </button>
+                            <button type="button" id="save-tutor" class="ml-2 bg-green-600 hover:bg-green-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hidden">
+                                Salvar Tutor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms Modal -->
+                <div id="terms-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+                        <div class="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-900">Termos e Condições do Pet Hotel</h3>
+                            <button id="close-terms" class="text-gray-400 hover:text-gray-500">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="terms-modal px-6 py-4">
+                            <h4 class="font-bold mb-2">1. Aceitação dos Termos</h4>
+                            <p class="mb-4">Ao se cadastrar no Pet Hotel Elegance, o tutor declara estar ciente e de acordo com todos os termos e condições aqui estabelecidos.</p>
+                            
+                            <h4 class="font-bold mb-2">2. Responsabilidades do Hotel</h4>
+                            <p class="mb-2">2.1. O Pet Hotel se compromete a:</p>
+                            <ul class="list-disc pl-5 mb-4">
+                                <li>Fornecer alimentação adequada conforme orientação do tutor</li>
+                                <li>Manter os espaços limpos e higienizados</li>
+                                <li>Oferecer assistência veterinária em caso de emergência</li>
+                                <li>Comunicar qualquer irregularidade ao tutor imediatamente</li>
+                            </ul>
+                            
+                            <h4 class="font-bold mb-2">3. Responsabilidades do Tutor</h4>
+                            <p class="mb-2">3.1. O tutor se responsabiliza por:</p>
+                            <ul class="list-disc pl-5 mb-4">
+                                <li>Informar todas as condições de saúde do pet</li>
+                                <li>Entregar o pet com vacinação em dia (apresentar carteirinha)</li>
+                                <li>Fornecer medicamentos com dosagens e horários quando necessário</li>
+                                <li>Pagar os valores acordados nos prazos estabelecidos</li>
+                            </ul>
+                            
+                            <h4 class="font-bold mb-2">4. Tarifas e Pagamentos</h4>
+                            <p class="mb-4">Os valores dos serviços devem ser pagos antecipadamente ou conforme acordado. Em caso de não comparecimento, será cobrada multa de 30% do valor do serviço.</p>
+                            
+                            <h4 class="font-bold mb-2">5. Emergências Médicas</h4>
+                            <p class="mb-4">Em casos de emergência, a equipe do hotel entrará em contato imediatamente com o tutor e, se não for possível, levará o pet ao veterinário mais próximo. Todos os custos serão de responsabilidade do tutor.</p>
+                            
+                            <h4 class="font-bold mb-2">6. Cancelamentos</h4>
+                            <p class="mb-4">Cancelamentos devem ser feitos com 48h de antecedência. Caso contrário, será cobrada taxa de 30% do valor do serviço.</p>
+                            
+                            <h4 class="font-bold mb-2">7. Itens Pessoais</h4>
+                            <p class="mb-4">O hotel não se responsabiliza por objetos pessoais deixados junto com os animais.</p>
+                            
+                            <h4 class="font-bold mb-2">8. Aceitação</h4>
+                            <p>Ao marcar a opção "Aceito os termos", o tutor declara estar ciente de todas as condições acima e se compromete a cumpri-las.</p>
+                        </div>
+                        <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                            <button id="accept-terms" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Fechar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pets Content -->
+                <div id="pets-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Cadastro de Pets</h3>
+                            <button id="new-pet-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Novo Pet
+                            </button>
+                        </div>
+                        <div class="mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="search-pet" class="block text-sm font-medium text-gray-700">Buscar Pet</label>
+                                    <input type="text" id="search-pet" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="filter-species" class="block text-sm font-medium text-gray-700">Espécie</label>
+                                    <select id="filter-species" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="dog">Cachorro</option>
+                                        <option value="cat">Gato</option>
+                                        <option value="other">Outros</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Espécie</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Raça</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tutor</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alergias</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-10 w-10">
+                                                    <img src="https://placehold.co/40x40" alt="Golden Retriever sorrindo - Cão de pelo dourado com olhos expressivos" class="h-10 w-10 rounded-full">
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">Thor</div>
+                                                    <div class="text-sm text-gray-500">Sexo: Macho</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Cachorro</span>
+                                        </td>
+                                        <td class="-6 py-4 whitespace-nowrap text-sm text-gray-500">Golden Retriever</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">João Silva</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Nenhuma</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Editar</a>
+                                            <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
+                                        </td>
+                                    </tr>
+                                    <!-- More pets... -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Pet Modal -->
+                <div id="new-pet-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+                        <div class="border-b border-gray-200 px-6 py-4">
+                            <h3 class="text-lg font-medium text-gray-900">Novo Pet</h3>
+                        </div>
+                        <div class="px-6 py-4">
+                            <form id="pet-form">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="pet-name" class="block text-sm font-medium text-gray-700">Nome do Pet *</label>
+                                        <input type="text" id="pet-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="pet-species" class="block text-sm font-medium text-gray-700">Espécie *</label>
+                                        <select id="pet-species" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                            <option value="">Selecione</option>
+                                            <option value="dog">Cachorro</option>
+                                            <option value="cat">Gato</option>
+                                            <option value="other">Outro</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="pet-breed" class="block text-sm font-medium text-gray-700">Raça *</label>
+                                        <input type="text" id="pet-breed" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="pet-gender" class="block text-sm font-medium text-gray-700">Sexo *</label>
+                                        <select id="pet-gender" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                            <option value="">Selecione</option>
+                                            <option value="male">Macho</option>
+                                            <option value="female">Fêmea</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="pet-birthdate" class="block text-sm font-medium text-gray-700">Data de Nascimento</label>
+                                        <input type="date" id="pet-birthdate" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="pet-weight" class="block text-sm font-medium text-gray-700">Peso (kg)</label>
+                                        <input type="number" id="pet-weight" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="pet-allergies" class="block text-sm font-medium text-gray-700">Alergias/Medicações</label>
+                                        <textarea id="pet-allergies" rows="2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="pet-photo" class="block text-sm font-medium text-gray-700">Foto do Pet</label>
+                                        <div class="mt-1 flex items-center">
+                                            <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                                                <img id="pet-photo-preview" src="https://placehold.co/120x120" alt="Pré-visualização da foto do pet - Área para upload de imagem" class="h-full w-full text-gray-300">
+                                            </span>
+                                            <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                Alterar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="pet-notes" class="block text-sm font-medium text-gray-700">Observações</label>
+                                        <textarea id="pet-notes" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                            <button type="button" id="cancel-pet" class="mr-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Cancelar
+                            </button>
+                            <button type="button" id="save-pet" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Salvar Pet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Content -->
+                <div id="calendar-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Calendário de Compromissos</h3>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Novo Agendamento
+                            </button>
+                        </div>
+                        <div class="mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="search-calendar" class="block text-sm font-medium text-gray-700">Buscar</label>
+                                    <input type="text" id="search-calendar" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="filter-service" class="block text-sm font-medium text-gray-700">Tipo de Serviço</label>
+                                    <select id="filter-service" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="hosting">Hospedagem</option>
+                                        <option value="daycare">Creche</option>
+                                        <option value="bath">Banho</option>
+                                        <option value="vet">Veterinário</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="filter-status" class="block text-sm font-medium text-gray-700">Status</label>
+                                    <select id="filter-status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="pending">Pendente</option>
+                                        <option value="confirmed">Confirmado</option>
+                                        <option value="canceled">Cancelado</option>
+                                        <option value="completed">Concluído</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <button id="prev-month" class="p-2 rounded-full hover:bg-gray-100">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <h4 id="current-month" class="mx-4 text-lg font-medium">Agosto 2023</h4>
+                                    <button id="next-month" class="p-2 rounded-full hover:bg-gray-100">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button id="today-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm">
+                                        Hoje
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Domingo</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Segunda</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Terça</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Quarta</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Quinta</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Sexta</th>
+                                            <th class="py-2 text-center text-sm font-medium text-gray-500">Sábado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Weeks will be generated by JavaScript -->
+                                        <tr id="week-1"></tr>
+                                        <tr id="week-2"></tr>
+                                        <tr id="week-3"></tr>
+                                        <tr id="week-4"></tr>
+                                        <tr id="week-5"></tr>
+                                        <tr id="week-6"></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-lg shadow p-6">
+                            <h4 class="text-lg font-medium text-gray-900 mb-4">Próximos Compromissos</h4>
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://placehold.co/40x40" alt="Yorkshire Terrier - Cão pequeno com pelo comprido" class="h-10 w-10 rounded-full">
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-800">Thor - Banho e Tosa</p>
+                                            <p class="text-sm text-gray-600">15/08/2023 - 10:00</p>
+                                            <p class="text-sm text-gray-500">Tutor: João Silva</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- More appointments... -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Content -->
+                <div id="services-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Serviços Disponíveis</h3>
+                            <div class="flex space-x-2">
+                                <button id="new-package-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                    <i class="fas fa-plus mr-2"></i> Novo Pacote
+                                </button>
+                                <button id="new-service-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center">
+                                    <i class="fas fa-plus mr-2"></i> Novo Serviço
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <div class="border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-8">
+                                    <a href="#" id="packages-tab" class="border-b-2 border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 text-sm font-medium">Pacotes</a>
+                                    <a href="#" id="individual-services-tab" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Serviços Avulsos</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div id="packages-content" class="mt-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+                                    <div class="px-4 py-5 sm:p-6">
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900">Hospedagem Premium</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Para estadias mais confortáveis</p>
+                                        <div class="mt-4 flex items-baseline">
+                                            <span class="text-4xl font-extrabold text-gray-900">R$ 180</span>
+                                            <span class="ml-1 text-lg font-medium text-gray-500">/dia</span>
+                                        </div>
+                                        <p class="mt-4 text-sm text-gray-600">
+                                            Inclui: Suíte privativa, caminha premium, alimentação especial, 2 passeios diários e relatório diário.
+                                        </p>
+                                    </div>
+                                    <div class="px-4 py-4 bg-gray-50 border-t border-gray-200 flex justify-end">
+                                        <button type="button" class="text-blue-600 hover:text-blue-900 font-medium">Editar</button>
+                                        <button type="button" class="ml-4 text-red-600 hover:text-red-900 font-medium">Excluir</button>
+                                    </div>
+                                </div>
+                                <!-- More packages... -->
+                            </div>
+                        </div>
+                        <div id="individual-services-content" class="mt-4 hidden">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serviço</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descrição</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duração</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Banho</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Banho completo com shampoo especial</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">60 min</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ 80</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Editar</a>
+                                                <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
+                                            </td>
+                                        </tr>
+                                        <!-- More services... -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Service Modal -->
+                <div id="new-service-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+                        <div class="border-b border-gray-200 px-6 py-4">
+                            <h3 class="text-lg font-medium text-gray-900">Novo Serviço</h3>
+                        </div>
+                        <div class="px-6 py-4">
+                            <form id="service-form">
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <label for="service-name" class="block text-sm font-medium text-gray-700">Nome do Serviço *</label>
+                                        <input type="text" id="service-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="service-type" class="block text-sm font-medium text-gray-700">Tipo de Serviço *</label>
+                                        <select id="service-type" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                            <option value="">Selecione</option>
+                                            <option value="bath">Banho</option>
+                                            <option value="grooming">Tosa</option>
+                                            <option value="daycare">Creche</option>
+                                            <option value="hosting">Hospedagem</option>
+                                            <option value="vet">Veterinário</option>
+                                            <option value="other">Outro</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="service-duration" class="block text-sm font-medium text-gray-700">Duração (minutos) *</label>
+                                        <input type="number" id="service-duration" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="service-price" class="block text-sm font-medium text-gray-700">Valor (R$) *</label>
+                                        <input type="number" step="0.01" id="service-price" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="service-description" class="block text-sm font-medium text-gray-700">Descrição</label>
+                                        <textarea id="service-description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                            <button type="button" id="cancel-service" class="mr-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Cancelar
+                            </button>
+                            <button type="button" id="save-service" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Salvar Serviço
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Package Modal -->
+                <div id="new-package-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+                        <div class="border-b border-gray-200 px-6 py-4">
+                            <h3 class="text-lg font-medium text-gray-900">Novo Pacote</h3>
+                        </div>
+                        <div class="px-6 py-4">
+                            <form id="package-form">
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <label for="package-name" class="block text-sm font-medium text-gray-700">Nome do Pacote *</label>
+                                        <input type="text" id="package-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="package-type" class="block text-sm font-medium text-gray-700">Tipo de Pacote *</label>
+                                        <select id="package-type" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                            <option value="">Selecione</option>
+                                            <option value="hosting">Hospedagem</option>
+                                            <option value="daycare">Creche</option>
+                                            <option value="bath">Banho/Tosa</option>
+                                            <option value="other">Outro</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="package-duration" class="block text-sm font-medium text-gray-700">Duração (dias) *</label>
+                                        <input type="number" id="package-duration" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="package-price" class="block text-sm font-medium text-gray-700">Valor Total (R$) *</label>
+                                        <input type="number" step="0.01" id="package-price" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="package-price" class="block text-sm font-medium text-gray-700">Valor Unitário (R$/dia)</label>
+                                        <input type="text" id="package-unit-price" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-100" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Serviços Inclusos</label>
+                                        <div class="mt-1 space-y-2">
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="service-1" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                                </div>
+                                                <label for="service-1" class="ml-3 block text-sm text-gray-700">Banho</label>
+                                            </div>
+                                            <!-- More services... -->
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="package-description" class="block text-sm font-medium text-gray-700">Descrição</label>
+                                        <textarea id="package-description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                            <button type="button" id="cancel-package" class="mr-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Cancelar
+                            </button>
+                            <button type="button" id="save-package" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Salvar Pacote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Content -->
+                <div id="sales-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Vendas e Notas Fiscais</h3>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Nova Venda
+                            </button>
+                        </div>
+                        <div class="mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="search-sale" class="block text-sm font-medium text-gray-700">Buscar</label>
+                                    <input type="text" id="search-sale" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="filter-sale-status" class="block text-sm font-medium text-gray-700">Status</label>
+                                    <select id="filter-sale-status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="open">Aberto</option>
+                                        <option value="paid">Pago</option>
+                                        <option value="canceled">Cancelado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nº Nota</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pet</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NF-2023-0001</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">João Silva</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Thor</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10/08/2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ 540,00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
+                                            <a href="#" class="text-blue-600 hover:text-blue-900">NF</a>
+                                        </td>
+                                    </tr>
+                                    <!-- More sales... -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Content -->
+                <div id="reports-content" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Relatórios Financeiros</h3>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                                    <i class="fas fa-download mr-2"></i> Exportar
+                                </button>
+                                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center">
+                                    <i class="fas fa-print mr-2"></i> Imprimir
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="report-type" class="block text-sm font-medium text-gray-700">Tipo de Relatório</label>
+                                    <select id="report-type" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="monthly">Mensal</option>
+                                        <option value="service">Por Serviço</option>
+                                        <option value="tutor">Por Tutor</option>
+                                        <option value="custom">Personalizado</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="report-month" class="block text-sm font-medium text-gray-700">Mês</label>
+                                    <select id="report-month" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="1">Janeiro</option>
+                                        <option value="2">Fevereiro</option>
+                                        <option value="3">Março</option>
+                                        <option value="4" selected>Agosto</option>
+                                        <!-- More months... -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="report-year" class="block text-sm font-medium text-gray-700">Ano</label>
+                                    <select id="report-year" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023" selected>2023</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="report-service" class="block text-sm font-medium text-gray-700">Serviço</label>
+                                    <select id="report-service" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Todos</option>
+                                        <option value="bath">Banho</option>
+                                        <option value="hosting">Hospedagem</option>
+                                        <!-- More services... -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div class="bg-white border border-gray-200 rounded-lg shadow p-6">
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">Total Recebido</h3>
+                                <p class="text-3xl font-bold text-green-600">R$ 18,540</p>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg shadow p-6">
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">Média Diária</h3>
+                                <p class="text-3xl font-bold text-blue-600">R$ 598</p>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg shadow p-6">
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">Pets Atendidos</h3>
+                                <p class="text-3xl font-bold text-purple-600">47</p>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Receita por Serviço</h3>
+                            <div class="h-64">
+                                <img src="https://placehold.co/800x400" alt="Gráfico de barras mostrando a receita por serviço no mês atual - Hospedagem: R$12.000, Banho: R$3.200, Tosa: R$2.100, Veterinário: R$1.240" class="w-full h-full object-contain">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Navigation between sections
+        document.querySelectorAll('[id$="-tab"]').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.id.replace('-tab', '-content');
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show selected section
+                document.getElementById(sectionId).classList.remove('hidden');
+                
+                // Update title
+                document.getElementById('section-title').textContent = this.textContent.trim();
+                
+                // Update active tab styling
+                document.querySelectorAll('[id$="-tab"]').forEach(t => {
+                    t.classList.remove('bg-blue-700');
+                });
+                this.classList.add('bg-blue-700');
+            });
+        });
+
+        // Show tutor modal
+        document.getElementById('new-tutor-btn').addEventListener('click', function() {
+            document.getElementById('new-tutor-modal').classList.remove('hidden');
+            document.getElementById('tutor-link-section').classList.add('hidden');
+            document.getElementById('save-tutor').classList.add('hidden');
+            document.getElementById('generate-tutor-link').classList.remove('hidden');
+            document.getElementById('tutor-form').reset();
+        });
+
+        // Close tutor modal
+        document.getElementById('cancel-tutor').addEventListener('click', function() {
+            document.getElementById('new-tutor-modal').classList.add('hidden');
+        });
+
+        // View terms
+        document.getElementById('view-terms').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('terms-modal').classList.remove('hidden');
+        });
+
+        // Close terms modal
+        document.getElementById('close-terms').addEventListener('click', function() {
+            document.getElementById('terms-modal').classList.add('hidden');
+        });
+
+        document.getElementById('accept-terms').addEventListener('click', function() {
+            document.getElementById('terms-modal').classList.add('hidden');
+        });
+
+        // Generate tutor link
+        document.getElementById('generate-tutor-link').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('tutor-form');
+            let isValid = true;
+            
+            form.querySelectorAll('[required]').forEach(field => {
+                if (!field.value) {
+                    field.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+
+            if (!document.getElementById('tutor-terms').checked) {
+                document.getElementById('tutor-terms').parentElement.classList.add('text-red-600');
+                isValid = false;
+            } else {
+                document.getElementById('tutor-terms').parentElement.classList.remove('text-red-600');
+            }
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios e aceite os termos.');
+                return;
+            }
+
+            // Generate random link
+            const randomId = Math.random().toString(36).substring(2, 15);
+            const link = `${window.location.origin}/cadastro-tutor/${randomId}`;
+            
+            document.getElementById('tutor-link').value = link;
+            document.getElementById('tutor-link-section').classList.remove('hidden');
+            document.getElementById('generate-tutor-link').classList.add('hidden');
+            document.getElementById('save-tutor').classList.remove('hidden');
+        });
+
+        function copyTutorLink() {
+            const linkInput = document.getElementById('tutor-link');
+            linkInput.select();
+            document.execCommand('copy');
+            alert('Link copiado para a área de transferência!');
+        }
+
+        // Save tutor
+        document.getElementById('save-tutor').addEventListener('click', function() {
+            alert('Tutor cadastrado com sucesso e link gerado!');
+            document.getElementById('new-tutor-modal').classList.add('hidden');
+        });
+
+        // Show pet modal
+        document.getElementById('new-pet-btn').addEventListener('click', function() {
+            document.getElementById('new-pet-modal').classList.remove('hidden');
+            document.getElementById('pet-form').reset();
+        });
+
+        // Close pet modal
+        document.getElementById('cancel-pet').addEventListener('click', function() {
+            document.getElementById('new-pet-modal').classList.add('hidden');
+        });
+
+        // Save pet
+        document.getElementById('save-pet').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('pet-form');
+            let isValid = true;
+            
+            form.querySelectorAll('[required]').forEach(field => {
+                if (!field.value) {
+                    field.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            alert('Pet cadastrado com sucesso!');
+            document.getElementById('new-pet-modal').classList.add('hidden');
+        });
+
+        // Services tabs
+        document.getElementById('packages-tab').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('packages-content').classList.remove('hidden');
+            document.getElementById('individual-services-content').classList.add('hidden');
+            this.classList.add('border-blue-500', 'text-blue-600');
+            document.getElementById('individual-services-tab').classList.remove('border-blue-500', 'text-blue-600');
+        });
+
+        document.getElementById('individual-services-tab').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('individual-services-content').classList.remove('hidden');
+            document.getElementById('packages-content').classList.add('hidden');
+            this.classList.add('border-blue-500', 'text-blue-600');
+            document.getElementById('packages-tab').classList.remove('border-blue-500', 'text-blue-600');
+        });
+
+        // Show new service modal
+        document.getElementById('new-service-btn').addEventListener('click', function() {
+            document.getElementById('new-service-modal').classList.remove('hidden');
+            document.getElementById('service-form').reset();
+        });
+
+        // Close service modal
+        document.getElementById('cancel-service').addEventListener('click', function() {
+            document.getElementById('new-service-modal').classList.add('hidden');
+        });
+
+        // Save service
+        document.getElementById('save-service').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('service-form');
+            let isValid = true;
+            
+            form.querySelectorAll('[required]').forEach(field => {
+                if (!field.value) {
+                    field.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            alert('Serviço cadastrado com sucesso!');
+            document.getElementById('new-service-modal').classList.add('hidden');
+        });
+
+        // Show new package modal
+        document.getElementById('new-package-btn').addEventListener('click', function() {
+            document.getElementById('new-package-modal').classList.remove('hidden');
+            document.getElementById('package-form').reset();
+        });
+
+        // Close package modal
+        document.getElementById('cancel-package').addEventListener('click', function() {
+            document.getElementById('new-package-modal').classList.add('hidden');
+        });
+
+        // Calculate unit price
+        document.getElementById('package-duration').addEventListener('input', function() {
+            const duration = parseFloat(this.value) || 0;
+            const totalPrice = parseFloat(document.getElementById('package-price').value) || 0;
+            
+            if (duration > 0 && totalPrice > 0) {
+                const unitPrice = totalPrice / duration;
+                document.getElementById('package-unit-price').value = unitPrice.toFixed(2);
+            }
+        });
+
+        document.getElementById('package-price').addEventListener('input', function() {
+            const duration = parseFloat(document.getElementById('package-duration').value) || 0;
+            const totalPrice = parseFloat(this.value) || 0;
+            
+            if (duration > 0 && totalPrice > 0) {
+                const unitPrice = totalPrice / duration;
+                document.getElementById('package-unit-price').value = unitPrice.toFixed(2);
+            }
+        });
+
+        // Save package
+        document.getElementById('save-package').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('package-form');
+            let isValid = true;
+            
+            form.querySelectorAll('[required]').forEach(field => {
+                if (!field.value) {
+                    field.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            alert('Pacote cadastrado com sucesso!');
+            document.getElementById('new-package-modal').classList.add('hidden');
+        });
+
+        // Calendar navigation
+        let currentDate = new Date();
+        
+        function updateCalendar() {
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            document.getElementById('current-month').textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            
+            // Generate calendar days (simplified)
+            // In a real app, you would implement a proper calendar generator with appointments
+            for (let week = 1; week <= 6; week++) {
+                const weekRow = document.getElementById(`week-${week}`);
+                weekRow.innerHTML = '';
+                
+                for (let day = 0; day < 7; day++) {
+                    const dayNum = (week - 1) * 7 + day + 1;
+                    
+                    if (dayNum <= 31) { // Simple example for 31-day months
+                        weekRow.innerHTML += `
+                            <td class="border border-gray-200 p-1 h-24 align-top hover:bg-gray-50 calendar-day">
+                                <div class="h-full">
+                                    <div class="text-right p-1 pb-0 text-sm ${dayNum % 7 === 0 ? 'text-red-500' : ''}">
+                                        ${dayNum}
+                                    </div>
+                                </div>
+                            </td>
+                        `;
+                    } else {
+                        weekRow.innerHTML += `<td class="border border-gray-200 p-1 h-24"></td>`;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('prev-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            updateCalendar();
+        });
+        
+        document.getElementById('next-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            updateCalendar();
+        });
+        
+        document.getElementById('today-btn').addEventListener('click', function() {
+            currentDate = new Date();
+            updateCalendar();
+        });
+        
+        // Initialize calendar
+        updateCalendar();
+        
+        // Initialize default tab
+        document.getElementById('dashboard-tab').click();
+    </script>
+</body>
+</html>
